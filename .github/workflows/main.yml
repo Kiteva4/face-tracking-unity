@@ -57,9 +57,11 @@ jobs:
         run: |
           cd ${{ github.workspace }}
           ls -la
+          cd ./build
+          ls -la
 
       # Output
       - uses: actions/upload-artifact@v2
         with:
           name: Build
-          path: ${{ github.workspace }}/build
+          path: ${{ github.workspace }}/build/*
