@@ -41,7 +41,9 @@ jobs:
     
       # Build
       - name: Build project
-        uses: game-ci/unity-builder@v2
+        run: |
+           cd ${{ github.workspace }}
+           ls -laHUB_TOKENuses: game-ci/unity-builder@v2
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
@@ -50,6 +52,10 @@ jobs:
           
       # Output
       - uses: actions/upload-artifact@v2
+      - name: show directory
+        run: |
+          cd ${{ github.workspace }}
+          ls -la
         with:
           name: Build
           path: ${{ github.workspace }}/build
