@@ -65,5 +65,5 @@ jobs:
       # Output
       - uses: actions/upload-artifact@v2
         with:
-          name: Build
-          path: ${{ github.workspace }}/build/
+          name: ARFaceTracking.apk
+          path: ${{ github.workspace }}/build/Android/Android.apk
