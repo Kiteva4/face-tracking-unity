@@ -1,0 +1,13 @@
+﻿# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/projectSettingsUpdater.xml
+/.idea.ar-fundation-test.iml
+/modules.xml
+/contentModel.xml
+# Datasource local storage ignored files
+/../../../../../../:\TestProjects\ar-fundation-test\.idea\.idea.ar-fundation-test\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
