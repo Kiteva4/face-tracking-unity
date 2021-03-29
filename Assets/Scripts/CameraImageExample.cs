@@ -69,7 +69,7 @@ public class CameraImageExample : MonoBehaviour
 
         m_Texture.LoadRawTextureData(buffer);
         m_Texture.Apply();
-        Debug.Log($"w: {m_Texture.width} h: {m_Texture.height}");
+        // Debug.Log($"w: {m_Texture.width} h: {m_Texture.height}");
         _rawImage.texture = m_Texture;
         
         // Done with your temporary data, so you can dispose it.
