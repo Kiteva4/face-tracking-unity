@@ -9,61 +9,46 @@ on: [push]
 jobs:
   # This workflow contains a single job called "build"
   build:
+    name: Build for ${{ matrix.targetPlatform }}
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
+    strategy:
+      fail-fast: false
+      matrix:
+        targetPlatform:
+          - iOS # Build an iOS player.
+          - Android # Build an Android .apk standalone app.
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-      - name: free disk space
+      #Free disk
+      - name: Free disk space
         run: |
           sudo swapoff -a
           sudo rm -f /swapfile
           sudo apt clean
           docker rmi $(docker image ls -aq)
           df -h
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          lfs: true
 
       # Cache
       - uses: actions/cache@v2
         with:
-          path: ${{ github.workspace }}/Library
-          key: Library
-          
-      # Test
-      #- name: Run tests
-      #  uses: game-ci/unity-test-runner@v2
-      #  env:
-      #    UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-      #  with:
-      #    githubToken: ${{ secrets.GITHUB_TOKEN }}
-   
-      - name: show directory
-        run: |
-          cd ${{ github.workspace }}
-          ls -la
-
-      # Build
-      - name: Build project
-        uses: game-ci/unity-builder@v2
+          path: Library
+          key: Library-${{ matrix.targetPlatform }}
+          restore-keys: Library-
+      - uses: game-ci/unity-builder@v2
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
+          targetPlatform: ${{ matrix.targetPlatform }}
           allowDirtyBuild: true
-          targetPlatform: Android
-
-      - name: show directory
-        run: |
-          cd ${{ github.workspace }}
-          ls -la
-          cd ./build
-          ls -la
-          cd ./Android
-          ls -la
 
       # Output
       - uses: actions/upload-artifact@v2
         with:
-          name: ARFaceTracking.apk
-          path: ${{ github.workspace }}/build/Android/Android.apk
+          name: Build-${{ matrix.targetPlatform }}
+          path: build/${{ matrix.targetPlatform }}
