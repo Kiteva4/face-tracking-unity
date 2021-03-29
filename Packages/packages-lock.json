@@ -119,7 +119,7 @@
     },
     "com.unity.xr.arkit": {
       "version": "4.1.5",
-      "depth": 1,
+      "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.editorcoroutines": "1.0.0",
@@ -140,7 +140,7 @@
     },
     "com.unity.xr.arsubsystems": {
       "version": "4.1.5",
-      "depth": 1,
+      "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.subsystemregistration": "1.1.0"
